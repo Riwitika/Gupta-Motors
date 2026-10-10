@@ -246,7 +246,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 3. Featured Motorcycles Grid — Real Product Cards */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="catalogue" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-borderBase pb-3 mb-6 gap-2">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-crimson-700">
@@ -271,10 +271,10 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Service Centre & Spare Parts Split Section with Real Photography */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 4. Service Centre & Spare Parts Split Section with Genuine Branded Visuals */}
+      <section id="service" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Workshop Service Card with Real Workshop Photo */}
+          {/* Workshop Service Card with Branded Workshop Banner */}
           <div className="bg-white border border-borderBase rounded-sm overflow-hidden flex flex-col justify-between shadow-sm">
             <div>
               {/* Branded Gupta Motors Workshop Graphic Banner */}
@@ -355,27 +355,51 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Genuine Spares Card with Real Parts Photo */}
-          <div className="bg-white border border-borderBase rounded-sm overflow-hidden flex flex-col justify-between shadow-sm">
+          {/* Genuine Spares Card with Branded Counter Banner */}
+          <div id="spares" className="bg-white border border-borderBase rounded-sm overflow-hidden flex flex-col justify-between shadow-sm">
             <div>
-              {/* Photo Banner */}
-              <div className="relative h-48 bg-stone-900 overflow-hidden">
-                <img
-                  src="/images/dealership/genuine-parts.jpg"
-                  alt="Motorcycle genuine spare parts and engine servicing components"
-                  className="w-full h-full object-cover object-center"
+              {/* Branded Gupta Motors Genuine Parts Banner */}
+              <div className="relative h-48 bg-charcoal-950 border-b border-borderBase overflow-hidden flex flex-col justify-between p-5">
+                {/* Subtle architectural grid pattern */}
+                <div
+                  className="absolute inset-0 opacity-[0.06] pointer-events-none"
+                  style={{
+                    backgroundImage: 'radial-gradient(#FDFBF7 1px, transparent 1px)',
+                    backgroundSize: '16px 16px',
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-ivory-200 bg-charcoal-900/80 px-2 py-0.5 rounded-sm">
+
+                {/* Top Badge Strip */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-300 bg-emerald-950/80 px-2 py-0.5 rounded-sm border border-emerald-900/60">
                       100% OEM
                     </span>
-                    <h3 className="font-heading text-xl font-bold text-white mt-1">
-                      {t.highlights.sparesTitle}
-                    </h3>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-ivory-300">
+                      {isHindi ? 'मूल स्पेयर पार्ट्स' : 'Genuine Spares'}
+                    </span>
                   </div>
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  <span className="text-[10px] font-mono font-medium text-charcoal-400">
+                    Kurawali • Mainpuri
+                  </span>
+                </div>
+
+                {/* Center Brand Identity */}
+                <div className="relative z-10 text-center py-1">
+                  <div className="font-heading font-bold text-2xl tracking-wider text-ivory-50">
+                    BAJAJ GENUINE PARTS
+                  </div>
+                  <div className="text-xs font-semibold uppercase tracking-widest text-crimson-400 mt-0.5">
+                    Gupta Motors • Authorised Retail Counter
+                  </div>
+                </div>
+
+                {/* Bottom Card Title Strip */}
+                <div className="relative z-10 flex items-center justify-between border-t border-charcoal-800/80 pt-2 text-ivory-100">
+                  <h3 className="font-heading text-sm sm:text-base font-bold text-ivory-100">
+                    {t.highlights.sparesTitle}
+                  </h3>
+                  <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                 </div>
               </div>
 
@@ -415,7 +439,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* 5. Dealership Location & Direct Contact Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="location" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-28">
         <div className="p-6 sm:p-8 bg-ivory-100 border border-borderBase rounded-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-8 space-y-2">

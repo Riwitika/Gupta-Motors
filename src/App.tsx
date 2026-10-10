@@ -1,8 +1,18 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { PublicLayout } from './components/layout/PublicLayout';
 import { AdminLayout } from './components/layout/AdminLayout';
+
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
+};
 
 // Public Pages
 import { Home } from './pages/public/Home';
@@ -31,6 +41,7 @@ import { NotFound } from './pages/NotFound';
 export const App: React.FC = () => {
   return (
     <LanguageProvider>
+      <ScrollToTop />
       <Routes>
         {/* Public Customer Routes */}
         <Route element={<PublicLayout />}>

@@ -42,9 +42,9 @@ export const MotorcycleCard: React.FC<MotorcycleCardProps> = ({ motorcycle }) =>
           </span>
         </div>
 
-        {/* Real Product Photography Container */}
+        {/* Product Photography or Honest Branded Specification Card */}
         <div className="aspect-[16/10] bg-stone-100 relative overflow-hidden flex items-center justify-center border-b border-borderBase">
-          {!imageError ? (
+          {motorcycle.imagePath && !imageError ? (
             <>
               {/* Subtle loading skeleton */}
               {!imageLoaded && (
@@ -62,26 +62,51 @@ export const MotorcycleCard: React.FC<MotorcycleCardProps> = ({ motorcycle }) =>
                   imageLoaded ? 'opacity-100' : 'opacity-0'
                 }`}
               />
+              {/* Engine Specification Floating Badge */}
+              <div className="absolute bottom-2 right-2 bg-charcoal-950/85 backdrop-blur-xs text-ivory-50 text-[10px] font-mono font-medium px-2 py-0.5 rounded-sm shadow-xs">
+                {motorcycle.engineCc}
+              </div>
             </>
           ) : (
-            /* Graceful Fallback if image path fails */
-            <div className="w-full h-full p-4 flex flex-col justify-between bg-ivory-100 text-charcoal-600">
-              <div className="text-[10px] font-mono text-charcoal-500">
-                {motorcycle.engineCc} • {motorcycle.transmission}
+            /* Honest, Premium Branded Technical Card */
+            <div className="w-full h-full p-4 flex flex-col justify-between bg-charcoal-950 text-ivory-100 relative overflow-hidden">
+              {/* Subtle architectural grid pattern */}
+              <div
+                className="absolute inset-0 opacity-[0.05] pointer-events-none"
+                style={{
+                  backgroundImage: 'radial-gradient(#FDFBF7 1px, transparent 1px)',
+                  backgroundSize: '12px 12px',
+                }}
+              />
+
+              {/* Top technical strip */}
+              <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-charcoal-400">
+                <span className="uppercase tracking-wider">{motorcycle.fuelType}</span>
+                <span className="text-crimson-400 font-semibold">{motorcycle.transmission}</span>
               </div>
-              <div className="text-center font-heading font-bold text-sm text-charcoal-800">
-                {motorcycle.name}
+
+              {/* Center Model Typography & Monogram */}
+              <div className="relative z-10 text-center my-auto py-1">
+                <div className="inline-block px-2 py-0.5 bg-crimson-950/80 border border-crimson-800/60 rounded-xs text-[9px] uppercase tracking-widest text-crimson-300 font-bold mb-1">
+                  {isHindi ? 'आधिकारिक मॉडल विवरण' : 'Official Specification'}
+                </div>
+                <div className="font-heading font-bold text-lg text-ivory-50 tracking-wide">
+                  {isHindi ? motorcycle.hindiName : motorcycle.name}
+                </div>
+                <div className="text-[10px] text-charcoal-300 font-medium mt-0.5">
+                  {isHindi ? 'शोरूम पर प्रत्यक्ष निरीक्षण उपलब्ध' : 'Verified Showroom Lineup • Kurawali'}
+                </div>
               </div>
-              <div className="text-[10px] text-right text-crimson-700 font-semibold uppercase">
-                {motorcycle.fuelType}
+
+              {/* Bottom Honest Notice Strip */}
+              <div className="relative z-10 flex items-center justify-between border-t border-charcoal-800 pt-1.5 text-[9px] text-charcoal-400">
+                <span className="font-medium text-crimson-400">
+                  {isHindi ? 'फोटो प्रतीक्षित • शोरूम परामर्श' : 'Official Photo Awaited'}
+                </span>
+                <span className="font-mono">{motorcycle.engineCc}</span>
               </div>
             </div>
           )}
-
-          {/* Engine Specification Floating Badge */}
-          <div className="absolute bottom-2 right-2 bg-charcoal-950/85 backdrop-blur-xs text-ivory-50 text-[10px] font-mono font-medium px-2 py-0.5 rounded-sm shadow-xs">
-            {motorcycle.engineCc}
-          </div>
         </div>
 
         {/* Spec Snapshot & Description */}
