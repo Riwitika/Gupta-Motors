@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: light;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    background-color: #FDFBF7;
+    color: #27272A;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #18181B;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer utilities {
+  /* Crisp dealership border utility */
+  .border-dealership {
+    border-color: #E2DDD5;
+  }
+
+  /* Compact button transition */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium text-sm transition-colors duration-150 rounded-sm focus:outline-none focus:ring-1 focus:ring-crimson-700 disabled:opacity-50 disabled:pointer-events-none;
+  }
+}
