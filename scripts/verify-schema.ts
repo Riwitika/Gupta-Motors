@@ -48,6 +48,7 @@ async function runVerification() {
     '20261011000004_public_submission_functions.sql',
     '20261011000005_catalogue_seed.sql',
     '20261011000006_security_hardening.sql',
+    '20261011000007_audit_and_enquiry_hardening.sql',
   ];
 
   assertTest(
@@ -198,6 +199,27 @@ async function runVerification() {
     allSql.includes('REVOKE ALL ON FUNCTION public.guard_employee_mutations() FROM PUBLIC;') &&
     allSql.includes('REVOKE ALL ON FUNCTION public.process_stock_movement() FROM PUBLIC;'),
     'Internal security functions must revoke execution privileges from PUBLIC'
+  );
+
+  // Test 14: Customer phone unique index for atomic concurrency
+  assertTest(
+    'Customer phone unique index defined',
+    allSql.includes('uq_customers_phone') && allSql.includes('ON public.customers(phone)'),
+    'Missing uq_customers_phone unique index'
+  );
+
+  // Test 15: Atomic customer upsert via ON CONFLICT (phone)
+  assertTest(
+    'Atomic customer upsert with ON CONFLICT (phone)',
+    allSql.includes('ON CONFLICT (phone)'),
+    'Public RPCs must use ON CONFLICT (phone) to prevent duplicate customer races'
+  );
+
+  // Test 16: Hardened audit_logs insert policy requires actor_id = auth.uid()
+  assertTest(
+    'Hardened audit_logs insert policy enforces actor_id = auth.uid()',
+    allSql.includes('actor_id = auth.uid()') && allSql.includes('audit_logs_insert_policy'),
+    'audit_logs_insert_policy must strictly bind actor_id to auth.uid()'
   );
 
   console.log('\n------------------------------------------------------');
