@@ -297,6 +297,123 @@ BEGIN
 END $$;
 
 -- -----------------------------------------------------------------------------
+-- TEST 7: Stock Movement Immutability & Quantity Direction Constraint
+-- -----------------------------------------------------------------------------
+DO $$
+DECLARE
+  v_product_id uuid;
+  v_movement_id uuid;
+  v_dummy_user_id uuid := gen_random_uuid();
+  v_failed boolean := false;
+BEGIN
+  -- Create test product
+  INSERT INTO public.inventory_products (
+    sku, name, category, cost_price, selling_price, current_stock
+  ) VALUES (
+    'TEST-BRAKE-SHOE', 'Test Bajaj Brake Shoe', 'spare_part', 200.00, 280.00, 50
+  ) RETURNING id INTO v_product_id;
+
+  -- Test 7.1: Sale movement with positive quantity MUST fail
+  BEGIN
+    INSERT INTO public.stock_movements (
+      product_id, movement_type, quantity, recorded_by
+    ) VALUES (
+      v_product_id, 'sale', 5, v_dummy_user_id
+    );
+    v_failed := true;
+  EXCEPTION WHEN check_violation THEN
+    -- Expected check violation
+  END;
+
+  IF v_failed THEN
+    RAISE EXCEPTION 'TEST 7.1 FAILED: Sale movement with positive quantity was accepted!';
+  END IF;
+
+  -- Test 7.2: Valid negative sale movement must succeed
+  INSERT INTO public.stock_movements (
+    product_id, movement_type, quantity, recorded_by
+  ) VALUES (
+    v_product_id, 'sale', -5, v_dummy_user_id
+  ) RETURNING id INTO v_movement_id;
+
+  -- Test 7.3: Attempting to UPDATE stock movement must fail
+  v_failed := false;
+  BEGIN
+    UPDATE public.stock_movements
+    SET quantity = -10
+    WHERE id = v_movement_id;
+    v_failed := true;
+  EXCEPTION WHEN OTHERS THEN
+    -- Expected trigger rejection
+  END;
+
+  IF v_failed THEN
+    RAISE EXCEPTION 'TEST 7.3 FAILED: Stock movement was successfully updated!';
+  END IF;
+
+  -- Test 7.4: Attempting to DELETE stock movement must fail
+  v_failed := false;
+  BEGIN
+    DELETE FROM public.stock_movements WHERE id = v_movement_id;
+    v_failed := true;
+  EXCEPTION WHEN OTHERS THEN
+    -- Expected trigger rejection
+  END;
+
+  IF v_failed THEN
+    RAISE EXCEPTION 'TEST 7.4 FAILED: Stock movement was successfully deleted!';
+  END IF;
+
+  RAISE NOTICE 'TEST 7 PASSED: Stock movement quantity direction is strictly checked and entries are immutable.';
+END $$;
+
+-- -----------------------------------------------------------------------------
+-- TEST 8: Anti-Spam Rate Limiting on Public Submission RPC
+-- -----------------------------------------------------------------------------
+DO $$
+DECLARE
+  v_test_phone text := '9999900001';
+  v_result jsonb;
+  v_failed boolean := false;
+  i integer;
+BEGIN
+  -- Perform 5 valid submissions within limit
+  FOR i IN 1..5 LOOP
+    v_result := public.submit_public_booking_enquiry(
+      'Test Spammer',
+      v_test_phone,
+      NULL,
+      'pulsar-125',
+      'general',
+      NULL,
+      'Automated rate test enquiry ' || i
+    );
+  END LOOP;
+
+  -- 6th submission with same phone number MUST be rejected by rate limiter
+  BEGIN
+    v_result := public.submit_public_booking_enquiry(
+      'Test Spammer',
+      v_test_phone,
+      NULL,
+      'pulsar-125',
+      'general',
+      NULL,
+      'Excessive enquiry 6'
+    );
+    v_failed := true;
+  EXCEPTION WHEN OTHERS THEN
+    -- Expected rate limit rejection
+  END;
+
+  IF v_failed THEN
+    RAISE EXCEPTION 'TEST 8 FAILED: 6th enquiry was accepted without triggering rate limiter!';
+  END IF;
+
+  RAISE NOTICE 'TEST 8 PASSED: Anti-spam rate limiting successfully restricts repeated public submissions.';
+END $$;
+
+-- -----------------------------------------------------------------------------
 -- Rollback the test transaction so no dirty test data persists
 -- -----------------------------------------------------------------------------
 ROLLBACK;

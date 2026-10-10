@@ -47,6 +47,7 @@ async function runVerification() {
     '20261011000003_row_level_security.sql',
     '20261011000004_public_submission_functions.sql',
     '20261011000005_catalogue_seed.sql',
+    '20261011000006_security_hardening.sql',
   ];
 
   assertTest(
@@ -162,6 +163,42 @@ async function runVerification() {
       'Found potential secret or service token pattern in SQL files!'
     );
   });
+
+  // Test 9: Stock movement quantity direction constraint
+  assertTest(
+    'Stock movement quantity direction check constraint',
+    allSql.includes('chk_stock_movement_quantity_direction'),
+    'Missing chk_stock_movement_quantity_direction constraint'
+  );
+
+  // Test 10: Stock movements immutability triggers attached
+  assertTest(
+    'Stock movement UPDATE/DELETE prevented by trigger',
+    allSql.includes('trg_prevent_stock_movement_update') && allSql.includes('trg_prevent_stock_movement_delete'),
+    'Stock movements must have triggers preventing UPDATE and DELETE'
+  );
+
+  // Test 11: Stock processor exclusive row locking (FOR UPDATE)
+  assertTest(
+    'Stock processor acquires row lock (FOR UPDATE)',
+    allSql.includes('FOR UPDATE') && allSql.includes('process_stock_movement'),
+    'process_stock_movement must acquire exclusive row lock with FOR UPDATE'
+  );
+
+  // Test 12: Public enquiry rate limiting logic
+  assertTest(
+    'Public enquiry anti-spam rate limiting present',
+    allSql.includes('v_recent_enquiries') && allSql.includes("interval '1 hour'"),
+    'Public booking enquiry must enforce rate limiting'
+  );
+
+  // Test 13: Internal function privileges revoked from PUBLIC
+  assertTest(
+    'Internal security function execution revoked from PUBLIC',
+    allSql.includes('REVOKE ALL ON FUNCTION public.guard_employee_mutations() FROM PUBLIC;') &&
+    allSql.includes('REVOKE ALL ON FUNCTION public.process_stock_movement() FROM PUBLIC;'),
+    'Internal security functions must revoke execution privileges from PUBLIC'
+  );
 
   console.log('\n------------------------------------------------------');
   const total = results.length;

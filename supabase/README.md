@@ -75,6 +75,13 @@ Migrations are located in `supabase/migrations/` and should be applied in numeri
    - `public.submit_public_service_request(...)`: Validated entry point for public workshop service requests.
 5. **`20261011000005_catalogue_seed.sql`**
    - Seeds verified Bajaj models (Pulsar NS200, N160, 125, Dominar 400, Avenger 220, Platina 110 ABS, CT 110X, etc.).
+6. **`20261011000006_security_hardening.sql`**
+   - Stock movement quantity direction checks (`chk_stock_movement_quantity_direction`).
+   - Immutable stock movements trigger (`prevent_stock_movement_tampering`).
+   - Row-level lock (`FOR UPDATE`) in stock processor to serialize concurrent transactions.
+   - Owner protection preventing admins from demoting/deactivating owner records.
+   - Anti-spam rate limiting on public booking and service RPCs.
+   - Execution privilege revocations from `PUBLIC`.
 
 ---
 
@@ -84,7 +91,7 @@ Migrations are located in `supabase/migrations/` and should be applied in numeri
 
 1. Open your Supabase project at [https://supabase.com/dashboard](https://supabase.com/dashboard).
 2. Go to the **SQL Editor**.
-3. Run each migration file in order (`000001` through `000005`).
+3. Run each migration file in order (`000001` through `000006`).
 4. Each migration file is idempotent and wrapped with safe guards.
 
 ### Option B: Using Supabase CLI
