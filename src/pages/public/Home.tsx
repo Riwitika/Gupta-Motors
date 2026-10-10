@@ -277,24 +277,48 @@ export const Home: React.FC = () => {
           {/* Workshop Service Card with Real Workshop Photo */}
           <div className="bg-white border border-borderBase rounded-sm overflow-hidden flex flex-col justify-between shadow-sm">
             <div>
-              {/* Photo Banner */}
-              <div className="relative h-48 bg-stone-900 overflow-hidden">
-                <img
-                  src="/images/workshop/workshop-service.jpg"
-                  alt="Bajaj motorcycle service bay workshop"
-                  className="w-full h-full object-cover object-center"
+              {/* Branded Gupta Motors Workshop Graphic Banner */}
+              <div className="relative h-48 bg-charcoal-950 border-b border-borderBase overflow-hidden flex flex-col justify-between p-5">
+                {/* Subtle architectural grid pattern */}
+                <div
+                  className="absolute inset-0 opacity-[0.06] pointer-events-none"
+                  style={{
+                    backgroundImage: 'radial-gradient(#FDFBF7 1px, transparent 1px)',
+                    backgroundSize: '16px 16px',
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-crimson-400 bg-crimson-950/70 px-2 py-0.5 rounded-sm">
-                      {isHindi ? 'अधिकृत वर्कशॉप' : 'Authorized Workshop'}
+
+                {/* Top Badge Strip */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 bg-crimson-700 border border-crimson-600 flex items-center justify-center rounded-sm">
+                      <span className="font-heading font-bold text-xs text-ivory-50">GM</span>
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-crimson-300 bg-crimson-950/80 px-2 py-0.5 rounded-sm border border-crimson-900/60">
+                      {isHindi ? 'अधिकृत सर्विस' : 'Authorized Service'}
                     </span>
-                    <h3 className="font-heading text-xl font-bold text-white mt-1">
-                      {t.highlights.serviceTitle}
-                    </h3>
                   </div>
-                  <Wrench className="w-5 h-5 text-crimson-400" />
+                  <span className="text-[10px] font-mono font-medium text-charcoal-400">
+                    Kurawali • Mainpuri
+                  </span>
+                </div>
+
+                {/* Center Brand Identity */}
+                <div className="relative z-10 text-center py-1">
+                  <div className="font-heading font-bold text-2xl tracking-wider text-ivory-50">
+                    GUPTA MOTORS
+                  </div>
+                  <div className="text-xs font-semibold uppercase tracking-widest text-crimson-400 mt-0.5">
+                    Authorised Sales &amp; Service
+                  </div>
+                </div>
+
+                {/* Bottom Card Title Strip */}
+                <div className="relative z-10 flex items-center justify-between border-t border-charcoal-800/80 pt-2 text-ivory-100">
+                  <h3 className="font-heading text-sm sm:text-base font-bold text-ivory-100">
+                    {t.highlights.serviceTitle}
+                  </h3>
+                  <Wrench className="w-4 h-4 text-crimson-400 flex-shrink-0" />
                 </div>
               </div>
 
