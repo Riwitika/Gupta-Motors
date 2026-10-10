@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test:db": "npx tsx scripts/verify-schema.ts"
+    "test:db": "npx tsx scripts/verify-schema.ts",
+    "test:conn": "npx tsx scripts/check-connection.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
