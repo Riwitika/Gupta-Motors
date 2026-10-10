@@ -347,7 +347,12 @@ export const PublicLayout: React.FC = () => {
           </div>
 
           <div className="mt-10 pt-6 border-t border-charcoal-900 flex flex-col sm:flex-row justify-between items-center text-xs text-charcoal-500 gap-2">
-            <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
+            <div>
+              <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
+              <p className="text-[11px] text-charcoal-600 mt-0.5">
+                Product & workshop photography used under Creative Commons (CC BY-SA) from Wikimedia Commons contributors.
+              </p>
+            </div>
             <p className="text-charcoal-400">{DEALERSHIP_INFO.address.line1}, {DEALERSHIP_INFO.address.city}</p>
           </div>
         </div>

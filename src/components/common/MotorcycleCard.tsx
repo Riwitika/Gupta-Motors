@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MotorcycleSpec } from '../../data/bajajCatalogue';
 import { useLanguage } from '../../context/LanguageContext';
 import { DEALERSHIP_INFO } from '../../constants/business';
-import { MessageSquare, PhoneCall } from 'lucide-react';
+import { MessageSquare, PhoneCall, Gauge } from 'lucide-react';
 
 interface MotorcycleCardProps {
   motorcycle: MotorcycleSpec;
@@ -11,6 +11,8 @@ interface MotorcycleCardProps {
 export const MotorcycleCard: React.FC<MotorcycleCardProps> = ({ motorcycle }) => {
   const { language, t } = useLanguage();
   const isHindi = language === 'hi';
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const whatsAppText = encodeURIComponent(
     `Hello Vishal Ji, I am inquiring about the ${motorcycle.name} at Gupta Motors, Kurawali. Please share the availability and on-road price details.`
@@ -19,12 +21,11 @@ export const MotorcycleCard: React.FC<MotorcycleCardProps> = ({ motorcycle }) =>
 
   return (
     <article className="bg-white border border-borderBase hover:border-charcoal-400 transition-all duration-200 rounded-sm flex flex-col justify-between overflow-hidden group shadow-sm">
-      {/* Top Banner & Graphic Header */}
       <div>
         {/* Card Header Strip */}
-        <div className="p-4 bg-ivory-100 border-b border-borderBase flex justify-between items-start gap-2">
+        <div className="p-3.5 bg-ivory-100 border-b border-borderBase flex justify-between items-start gap-2">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-0.5">
               <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-charcoal-900 text-ivory-50 rounded-sm">
                 {motorcycle.series}
               </span>
@@ -36,72 +37,50 @@ export const MotorcycleCard: React.FC<MotorcycleCardProps> = ({ motorcycle }) =>
               {isHindi ? motorcycle.hindiName : motorcycle.name}
             </h3>
           </div>
-          <span className="text-xs font-bold text-crimson-700 bg-crimson-50 border border-crimson-100 px-2 py-0.5 rounded-sm">
+          <span className="text-[10px] font-bold text-crimson-800 bg-crimson-50 border border-crimson-100 px-2 py-0.5 rounded-sm">
             Bajaj
           </span>
         </div>
 
-        {/* Technical Blueprint Graphic Placeholder */}
-        <div className="h-44 bg-gradient-to-b from-ivory-50 to-ivory-100 border-b border-borderBase relative p-4 flex flex-col justify-between overflow-hidden">
-          {/* Subtle engineering grid background */}
-          <div
-            className="absolute inset-0 opacity-[0.07] pointer-events-none"
-            style={{
-              backgroundImage: 'radial-gradient(#18181B 1px, transparent 1px)',
-              backgroundSize: '16px 16px',
-            }}
-          />
+        {/* Real Product Photography Container */}
+        <div className="aspect-[16/10] bg-stone-100 relative overflow-hidden flex items-center justify-center border-b border-borderBase">
+          {!imageError ? (
+            <>
+              {/* Subtle loading skeleton */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 bg-stone-200 animate-pulse flex items-center justify-center text-stone-400">
+                  <Gauge className="w-6 h-6 animate-spin opacity-40" />
+                </div>
+              )}
+              <img
+                src={motorcycle.imagePath}
+                alt={isHindi ? motorcycle.imageAltHindi : motorcycle.imageAlt}
+                loading="lazy"
+                onLoad={() => setImageLoaded(true)}
+                onError={() => setImageError(true)}
+                className={`w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105 ${
+                  imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            </>
+          ) : (
+            /* Graceful Fallback if image path fails */
+            <div className="w-full h-full p-4 flex flex-col justify-between bg-ivory-100 text-charcoal-600">
+              <div className="text-[10px] font-mono text-charcoal-500">
+                {motorcycle.engineCc} • {motorcycle.transmission}
+              </div>
+              <div className="text-center font-heading font-bold text-sm text-charcoal-800">
+                {motorcycle.name}
+              </div>
+              <div className="text-[10px] text-right text-crimson-700 font-semibold uppercase">
+                {motorcycle.fuelType}
+              </div>
+            </div>
+          )}
 
-          <div className="relative z-10 flex justify-between items-center text-[11px] text-charcoal-500 font-mono">
-            <span>ENGINE: {motorcycle.engineCc}</span>
-            <span>{motorcycle.transmission}</span>
-          </div>
-
-          {/* Stylized Motorcycle Vector Graphic */}
-          <div className="relative z-10 flex items-center justify-center py-2">
-            <svg
-              className="w-48 h-24 text-charcoal-800 transition-transform duration-300 group-hover:scale-105"
-              viewBox="0 0 200 100"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* Rear Wheel */}
-              <circle cx="40" cy="70" r="22" stroke="currentColor" strokeWidth="3" />
-              <circle cx="40" cy="70" r="10" stroke="#991B1B" strokeWidth="2" />
-              <line x1="40" y1="48" x2="40" y2="92" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-              <line x1="18" y1="70" x2="62" y2="70" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-
-              {/* Front Wheel */}
-              <circle cx="160" cy="70" r="22" stroke="currentColor" strokeWidth="3" />
-              <circle cx="160" cy="70" r="10" stroke="#991B1B" strokeWidth="2" />
-              <line x1="160" y1="48" x2="160" y2="92" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-              <line x1="138" y1="70" x2="182" y2="70" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-
-              {/* Frame & Engine Block */}
-              <path d="M40 70 L90 70 L115 50 L85 45 Z" fill="#18181B" opacity="0.2" />
-              <polyline points="40,70 85,70 120,40 145,25 155,50 160,70" strokeWidth="3" />
-              
-              {/* Fuel Tank & Seat Profile */}
-              <path d="M75 42 C85 36, 110 32, 130 38 L122 48 L75 48 Z" fill="#991B1B" stroke="#991B1B" strokeWidth="2" />
-              <path d="M55 46 Q75 44 85 46" stroke="currentColor" strokeWidth="4" />
-              
-              {/* Handlebar & Headlamp */}
-              <line x1="145" y1="25" x2="135" y2="18" stroke="currentColor" strokeWidth="3" />
-              <circle cx="152" cy="28" r="4" fill="#991B1B" />
-
-              {/* Exhaust Pipe */}
-              <path d="M95 68 L115 72 L70 78 L30 75" stroke="currentColor" strokeWidth="2.5" />
-            </svg>
-          </div>
-
-          <div className="relative z-10 flex justify-between items-center text-[10px] text-charcoal-600 font-medium">
-            <span className="uppercase tracking-wider text-crimson-800 font-semibold">
-              {motorcycle.fuelType}
-            </span>
-            <span className="font-mono">{motorcycle.brakes.split('/')[0]}</span>
+          {/* Engine Specification Floating Badge */}
+          <div className="absolute bottom-2 right-2 bg-charcoal-950/85 backdrop-blur-xs text-ivory-50 text-[10px] font-mono font-medium px-2 py-0.5 rounded-sm shadow-xs">
+            {motorcycle.engineCc}
           </div>
         </div>
 

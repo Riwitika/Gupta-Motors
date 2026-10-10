@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Wrench, ShieldCheck, PhoneCall, MessageSquare, Navigation } from 'lucide-react';
+import { ArrowRight, Wrench, ShieldCheck, PhoneCall, MessageSquare, Navigation, CheckCircle } from 'lucide-react';
 import { DEALERSHIP_INFO } from '../../constants/business';
 import { useLanguage } from '../../context/LanguageContext';
 import { BAJAJ_MOTORCYCLES } from '../../data/bajajCatalogue';
@@ -14,11 +14,11 @@ export const Home: React.FC = () => {
 
   return (
     <div className="space-y-12 pb-12">
-      {/* 1. Hero Section — Editorial Motorcycle Led */}
-      <section className="border-b border-borderBase bg-ivory-100 py-10 md:py-14 relative overflow-hidden">
+      {/* 1. Hero Section — Editorial Real Motorcycle Showcase */}
+      <section className="border-b border-borderBase bg-ivory-100 py-8 md:py-14 relative overflow-hidden">
         {/* Subtle geometric motorcycle line background */}
         <div
-          className="absolute inset-0 opacity-[0.04] pointer-events-none"
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
             backgroundImage:
               'linear-gradient(135deg, #18181B 25%, transparent 25%), linear-gradient(225deg, #18181B 25%, transparent 25%)',
@@ -27,9 +27,9 @@ export const Home: React.FC = () => {
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-4">
+            <div className="lg:col-span-6 space-y-4">
               <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-ivory-200 border border-borderBase rounded-sm text-xs font-semibold uppercase tracking-wider text-charcoal-700">
                 <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full animate-pulse"></span>
                 <span>{t.hero.badge}</span>
@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
                 {t.hero.title}
               </h1>
 
-              <p className="text-base sm:text-lg text-charcoal-700 leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-base text-charcoal-700 leading-relaxed max-w-xl">
                 {t.hero.subtitle}
               </p>
 
@@ -72,67 +72,90 @@ export const Home: React.FC = () => {
                 </a>
               </div>
 
-              {/* Address Quick Mention */}
-              <div className="pt-2 flex items-center gap-2 text-xs text-charcoal-600 font-medium">
-                <Navigation className="w-3.5 h-3.5 text-crimson-700" />
-                <span>{DEALERSHIP_INFO.address.line1}, {DEALERSHIP_INFO.address.city} (U.P.)</span>
+              {/* Verified Location & Owner Footnote */}
+              <div className="pt-2 flex flex-wrap items-center gap-3 text-xs text-charcoal-600 font-medium">
+                <span className="flex items-center gap-1.5">
+                  <Navigation className="w-3.5 h-3.5 text-crimson-700" />
+                  <span>{DEALERSHIP_INFO.address.line1}, {DEALERSHIP_INFO.address.city}</span>
+                </span>
+                <span className="text-charcoal-400">|</span>
+                <span>{t.footer.owner}</span>
               </div>
             </div>
 
-            {/* Right Hero Graphic: Flagship Spec Card */}
-            <div className="lg:col-span-5">
-              <div className="bg-white border-2 border-charcoal-900 p-6 rounded-sm shadow-md space-y-4 relative">
-                <div className="flex justify-between items-center border-b border-borderBase pb-3">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-crimson-800 bg-crimson-50 px-2 py-0.5 rounded-sm">
-                      {isHindi ? 'लोकप्रिय मॉडल' : 'Featured Flagship'}
+            {/* Right Hero Photographic Feature Card */}
+            <div className="lg:col-span-6">
+              <div className="bg-white border-2 border-charcoal-900 rounded-sm shadow-md overflow-hidden group">
+                {/* Hero Real Motorcycle Image Container */}
+                <div className="relative aspect-[16/10] sm:aspect-[16/10] bg-stone-900 overflow-hidden">
+                  <img
+                    src="/images/dealership/hero-pulsar.jpg"
+                    alt="Bajaj Pulsar NS200 at Gupta Motors Kurawali"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  />
+                  {/* Subtle vignette gradient for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-black/20" />
+
+                  {/* Top floating badges */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white bg-crimson-700 px-2 py-0.5 rounded-sm shadow-xs">
+                      {isHindi ? 'बजाज फ्लैगशिप' : 'Bajaj Flagship'}
                     </span>
-                    <h2 className="font-heading text-xl font-bold text-charcoal-950 mt-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-ivory-50 bg-charcoal-950/80 px-2 py-0.5 rounded-sm">
                       Pulsar NS200
-                    </h2>
+                    </span>
                   </div>
-                  <span className="text-xs font-mono font-bold text-charcoal-600">
-                    199.5 cc
-                  </span>
-                </div>
 
-                <p className="text-xs text-charcoal-600 leading-relaxed">
-                  {isHindi
-                    ? 'ट्रिपल स्पार्क लिक्विड कूल्ड इंजन, यूएसडी फोर्क्स और डुअल-चैनल एबीएस के साथ उत्कृष्ट प्रदर्शन।'
-                    : 'Triple-spark liquid-cooled 4-valve engine with USD front forks and race-tuned dual-channel ABS.'}
-                </p>
-
-                <div className="grid grid-cols-3 gap-2 bg-ivory-50 p-2.5 border border-borderBase rounded-sm text-center">
-                  <div>
-                    <span className="text-[10px] uppercase text-charcoal-500 font-semibold">Power</span>
-                    <div className="text-xs font-bold text-charcoal-950 mt-0.5">24.5 PS</div>
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase text-charcoal-500 font-semibold">Torque</span>
-                    <div className="text-xs font-bold text-charcoal-950 mt-0.5">18.74 Nm</div>
-                  </div>
-                  <div>
-                    <span className="text-[10px] uppercase text-charcoal-500 font-semibold">Gears</span>
-                    <div className="text-xs font-bold text-charcoal-950 mt-0.5">6-Speed</div>
+                  {/* Bottom Image Overlay Strip */}
+                  <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end text-white">
+                    <div>
+                      <div className="font-heading text-lg font-bold text-ivory-50 drop-shadow-sm">
+                        Pulsar NS200
+                      </div>
+                      <div className="text-[11px] text-ivory-200">
+                        199.5 cc • Liquid Cooled 4V • USD Forks
+                      </div>
+                    </div>
+                    <span className="text-xs font-mono font-bold bg-white text-charcoal-950 px-2 py-0.5 rounded-sm shadow-xs">
+                      24.5 PS
+                    </span>
                   </div>
                 </div>
 
-                <div className="pt-1 flex gap-2">
-                  <a
-                    href={`${DEALERSHIP_INFO.contact.whatsAppHref}?text=${encodeURIComponent('Hello Vishal Ji, I would like to inquire about the Pulsar NS200 at Gupta Motors Kurawali.')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-base w-full py-2 bg-emerald-700 text-white text-xs font-medium"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5 mr-1" />
-                    {isHindi ? 'व्हाट्सएप पूछताछ' : 'Inquire on WhatsApp'}
-                  </a>
-                  <a
-                    href={DEALERSHIP_INFO.contact.phoneHref}
-                    className="btn-base px-3 py-2 bg-charcoal-900 text-ivory-50 text-xs font-medium"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5" />
-                  </a>
+                {/* Lower Specs & Quick Action Strip */}
+                <div className="p-4 bg-white border-t border-borderBase space-y-3">
+                  <div className="grid grid-cols-3 gap-2 bg-ivory-50 p-2 border border-borderBase rounded-sm text-center">
+                    <div>
+                      <span className="text-[10px] uppercase text-charcoal-500 font-semibold">Power</span>
+                      <div className="text-xs font-bold text-charcoal-950 mt-0.5">24.5 PS</div>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase text-charcoal-500 font-semibold">Torque</span>
+                      <div className="text-xs font-bold text-charcoal-950 mt-0.5">18.74 Nm</div>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase text-charcoal-500 font-semibold">Brakes</span>
+                      <div className="text-xs font-bold text-charcoal-950 mt-0.5">Dual ABS</div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <a
+                      href={`${DEALERSHIP_INFO.contact.whatsAppHref}?text=${encodeURIComponent('Hello Vishal Ji, I would like to inquire about the Pulsar NS200 at Gupta Motors Kurawali.')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-base flex-1 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-medium"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5 mr-1" />
+                      {isHindi ? 'व्हाट्सएप पूछताछ' : 'Inquire on WhatsApp'}
+                    </a>
+                    <a
+                      href={DEALERSHIP_INFO.contact.phoneHref}
+                      className="btn-base px-3 py-2 bg-charcoal-900 hover:bg-black text-ivory-50 text-xs font-medium"
+                    >
+                      <PhoneCall className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,7 +245,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Featured Motorcycles Grid */}
+      {/* 3. Featured Motorcycles Grid — Real Product Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-borderBase pb-3 mb-6 gap-2">
           <div>
@@ -248,38 +271,56 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Service Centre & Spare Parts Split Feature */}
+      {/* 4. Service Centre & Spare Parts Split Section with Real Photography */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Workshop Service Card */}
-          <div className="p-6 bg-white border border-borderBase rounded-sm flex flex-col justify-between space-y-4">
-            <div className="space-y-3">
-              <div className="w-10 h-10 bg-ivory-100 border border-borderBase text-crimson-700 flex items-center justify-center rounded-sm">
-                <Wrench className="w-5 h-5" />
+          {/* Workshop Service Card with Real Workshop Photo */}
+          <div className="bg-white border border-borderBase rounded-sm overflow-hidden flex flex-col justify-between shadow-sm">
+            <div>
+              {/* Photo Banner */}
+              <div className="relative h-48 bg-stone-900 overflow-hidden">
+                <img
+                  src="/images/workshop/workshop-service.jpg"
+                  alt="Bajaj motorcycle service bay workshop"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-crimson-400 bg-crimson-950/70 px-2 py-0.5 rounded-sm">
+                      {isHindi ? 'अधिकृत वर्कशॉप' : 'Authorized Workshop'}
+                    </span>
+                    <h3 className="font-heading text-xl font-bold text-white mt-1">
+                      {t.highlights.serviceTitle}
+                    </h3>
+                  </div>
+                  <Wrench className="w-5 h-5 text-crimson-400" />
+                </div>
               </div>
-              <h3 className="font-heading text-xl font-bold text-charcoal-950">
-                {t.highlights.serviceTitle}
-              </h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                {t.highlights.serviceDesc}
-              </p>
-              <ul className="text-xs text-charcoal-700 space-y-1.5 pt-1">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full"></span>
-                  <span>{isHindi ? 'नियमित सर्विसिंग व इंजन ट्यून-अप' : 'Periodic maintenance & computerized engine diagnostics'}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full"></span>
-                  <span>{isHindi ? 'बजाज प्रमाणित ल्यूब्रिकेंट्स एवं ऑयल' : 'Official Bajaj genuine lubricants & oil filter replacement'}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full"></span>
-                  <span>{isHindi ? 'ब्रेक, क्लच व सस्पेंशन मरम्मत' : 'Brake overhaul, clutch repair & suspension inspection'}</span>
-                </li>
-              </ul>
+
+              {/* Service Features Body */}
+              <div className="p-6 space-y-3">
+                <p className="text-xs text-charcoal-600 leading-relaxed">
+                  {t.highlights.serviceDesc}
+                </p>
+                <ul className="text-xs text-charcoal-700 space-y-1.5 pt-1">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-3.5 h-3.5 text-crimson-700 flex-shrink-0" />
+                    <span>{isHindi ? 'नियमित सर्विसिंग व इंजन ट्यून-अप' : 'Periodic maintenance & computerized engine diagnostics'}</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-3.5 h-3.5 text-crimson-700 flex-shrink-0" />
+                    <span>{isHindi ? 'बजाज प्रमाणित ल्यूब्रिकेंट्स एवं ऑयल' : 'Official Bajaj genuine lubricants & oil filter replacement'}</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-3.5 h-3.5 text-crimson-700 flex-shrink-0" />
+                    <span>{isHindi ? 'ब्रेक, क्लच व सस्पेंशन मरम्मत' : 'Brake overhaul, clutch repair & suspension inspection'}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            <div className="pt-2">
+            <div className="p-6 pt-0">
               <Link
                 to="/service-booking"
                 className="btn-base w-full sm:w-auto px-5 py-2.5 bg-crimson-700 hover:bg-crimson-800 text-white font-medium text-xs shadow-sm"
@@ -290,35 +331,53 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* Genuine Spares Card */}
-          <div className="p-6 bg-white border border-borderBase rounded-sm flex flex-col justify-between space-y-4">
-            <div className="space-y-3">
-              <div className="w-10 h-10 bg-ivory-100 border border-borderBase text-charcoal-900 flex items-center justify-center rounded-sm">
-                <ShieldCheck className="w-5 h-5" />
+          {/* Genuine Spares Card with Real Parts Photo */}
+          <div className="bg-white border border-borderBase rounded-sm overflow-hidden flex flex-col justify-between shadow-sm">
+            <div>
+              {/* Photo Banner */}
+              <div className="relative h-48 bg-stone-900 overflow-hidden">
+                <img
+                  src="/images/dealership/genuine-parts.jpg"
+                  alt="Motorcycle genuine spare parts and engine servicing components"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-ivory-200 bg-charcoal-900/80 px-2 py-0.5 rounded-sm">
+                      100% OEM
+                    </span>
+                    <h3 className="font-heading text-xl font-bold text-white mt-1">
+                      {t.highlights.sparesTitle}
+                    </h3>
+                  </div>
+                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                </div>
               </div>
-              <h3 className="font-heading text-xl font-bold text-charcoal-950">
-                {t.highlights.sparesTitle}
-              </h3>
-              <p className="text-xs text-charcoal-600 leading-relaxed">
-                {t.highlights.sparesDesc}
-              </p>
-              <ul className="text-xs text-charcoal-700 space-y-1.5 pt-1">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full"></span>
-                  <span>{isHindi ? '100% फ़ैक्ट्री मूल स्पेयर पार्ट्स' : '100% genuine OEM factory packaged components'}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full"></span>
-                  <span>{isHindi ? 'डिस्क पैड्स, स्पार्क प्लग व केबल्स' : 'Brake pads, clutch cables, chain kits & spark plugs'}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 bg-crimson-700 rounded-full"></span>
-                  <span>{isHindi ? 'दुकान पर उपलब्धता की त्वरित पुष्टि' : 'Fast over-the-counter shelf stock confirmation'}</span>
-                </li>
-              </ul>
+
+              {/* Spares Features Body */}
+              <div className="p-6 space-y-3">
+                <p className="text-xs text-charcoal-600 leading-relaxed">
+                  {t.highlights.sparesDesc}
+                </p>
+                <ul className="text-xs text-charcoal-700 space-y-1.5 pt-1">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-3.5 h-3.5 text-crimson-700 flex-shrink-0" />
+                    <span>{isHindi ? '100% फ़ैक्ट्री मूल स्पेयर पार्ट्स' : '100% genuine OEM factory packaged components'}</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-3.5 h-3.5 text-crimson-700 flex-shrink-0" />
+                    <span>{isHindi ? 'डिस्क पैड्स, स्पार्क प्लग व केबल्स' : 'Brake pads, clutch cables, chain kits & spark plugs'}</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-3.5 h-3.5 text-crimson-700 flex-shrink-0" />
+                    <span>{isHindi ? 'दुकान पर उपलब्धता की त्वरित पुष्टि' : 'Fast over-the-counter shelf stock confirmation'}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            <div className="pt-2">
+            <div className="p-6 pt-0">
               <Link
                 to="/spare-parts"
                 className="btn-base w-full sm:w-auto px-5 py-2.5 bg-charcoal-900 hover:bg-black text-ivory-50 font-medium text-xs border border-charcoal-800 shadow-sm"

@@ -15,6 +15,9 @@ export interface MotorcycleSpec {
   brakes: string;
   fuelType: string;
   featured: boolean;
+  imagePath: string;
+  imageAlt: string;
+  imageAltHindi: string;
   highlightSpecs: {
     label: string;
     hindiLabel: string;
@@ -40,6 +43,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front 240mm Disc / CBS',
     fuelType: 'Petrol (DTS-i)',
     featured: true,
+    imagePath: '/images/bikes/pulsar-125.jpg',
+    imageAlt: 'Bajaj Pulsar 125 sports commuter motorcycle',
+    imageAltHindi: 'बजाज पल्सर 125 स्पोर्टी कम्यूटर मोटरसाइकिल',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '11.8 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '10.8 Nm' },
@@ -62,6 +68,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front 260mm Disc with ABS',
     fuelType: 'Twin Spark DTS-i FI',
     featured: true,
+    imagePath: '/images/bikes/pulsar-150.jpg',
+    imageAlt: 'Bajaj Pulsar 150 classic sports motorcycle',
+    imageAltHindi: 'बजाज पल्सर 150 क्लासिक स्पोर्ट्स बाइक',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '14.0 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '13.25 Nm' },
@@ -84,6 +93,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Dual Channel ABS (300mm Front Disc)',
     fuelType: 'Oil Cooled FI',
     featured: true,
+    imagePath: '/images/bikes/pulsar-n160.jpg',
+    imageAlt: 'Bajaj Pulsar N160 naked streetfighter motorcycle',
+    imageAltHindi: 'बजाज पल्सर N160 नेकेड स्ट्रीटफाइटर',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '16.0 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '14.65 Nm' },
@@ -106,6 +118,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Dual Channel ABS with USD Front Forks',
     fuelType: 'Liquid Cooled Triple Spark 4V',
     featured: true,
+    imagePath: '/images/bikes/pulsar-ns200.jpg',
+    imageAlt: 'Bajaj Pulsar NS200 naked sports performance motorcycle',
+    imageAltHindi: 'बजाज पल्सर NS200 नेकेड स्पोर्ट्स बाइक',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '24.5 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '18.74 Nm' },
@@ -128,6 +143,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Dual Channel ABS with switchable modes',
     fuelType: 'Oil Cooled Single Cylinder',
     featured: false,
+    imagePath: '/images/bikes/pulsar-n250.jpg',
+    imageAlt: 'Bajaj Pulsar N250 quarter litre naked motorcycle',
+    imageAltHindi: 'बजाज पल्सर N250 क्वार्टर लीटर मोटरसाइकिल',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '24.5 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '21.5 Nm' },
@@ -152,6 +170,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front Disc/Drum with CBS',
     fuelType: 'Dual Fuel: CNG + Petrol',
     featured: true,
+    imagePath: '/images/bikes/freedom-125.jpg',
+    imageAlt: 'Bajaj Freedom 125 dual-fuel CNG motorcycle',
+    imageAltHindi: 'बजाज फ्रीडम 125 सीएनजी मोटरसाइकिल',
     highlightSpecs: [
       { label: 'Fuel', hindiLabel: 'ईंधन', value: 'CNG + Petrol' },
       { label: 'Power', hindiLabel: 'पावर', value: '9.5 PS' },
@@ -174,6 +195,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front & Rear 130mm Drum with CBS',
     fuelType: 'DTS-i Single Cylinder',
     featured: false,
+    imagePath: '/images/bikes/platina-100.jpg',
+    imageAlt: 'Bajaj Platina 100 mileage commuter motorcycle',
+    imageAltHindi: 'बजाज प्लेटिना 100 माइलेज बाइक',
     highlightSpecs: [
       { label: 'Engine', hindiLabel: 'इंजन', value: '102 cc' },
       { label: 'Power', hindiLabel: 'पावर', value: '7.9 PS' },
@@ -196,6 +220,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Single Channel ABS (Front 240mm Disc)',
     fuelType: '4-stroke DTS-i',
     featured: true,
+    imagePath: '/images/bikes/platina-110-abs.jpg',
+    imageAlt: 'Bajaj Platina 110 with single channel ABS',
+    imageAltHindi: 'बजाज प्लेटिना 110 एबीएस कम्यूटर बाइक',
     highlightSpecs: [
       { label: 'Safety', hindiLabel: 'सुरक्षा', value: 'Single Channel ABS' },
       { label: 'Gears', hindiLabel: 'गियर', value: '5-Speed' },
@@ -218,6 +245,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front & Rear Drum with CBS',
     fuelType: '4-Stroke Single Cylinder',
     featured: false,
+    imagePath: '/images/bikes/ct-110x.jpg',
+    imageAlt: 'Bajaj CT 110X rugged rural commuter motorcycle',
+    imageAltHindi: 'बजाज सीटी 110X मजबूत रफ-टेरेन बाइक',
     highlightSpecs: [
       { label: 'Build', hindiLabel: 'बनावट', value: 'Heavy Duty Carrier' },
       { label: 'Tyres', hindiLabel: 'टायर', value: 'Semi-Knobby' },
@@ -242,6 +272,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front 280mm Disc with ABS / Rear 130mm Drum',
     fuelType: 'Oil Cooled Twin Spark DTS-i',
     featured: false,
+    imagePath: '/images/bikes/avenger-cruise-220.jpg',
+    imageAlt: 'Bajaj Avenger Cruise 220 classic highway cruiser',
+    imageAltHindi: 'बजाज एवेंजर क्रूज़ 220 क्लासिक क्रूज़र बाइक',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '19.03 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '17.55 Nm' },
@@ -264,6 +297,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Front 280mm Disc with ABS',
     fuelType: 'Air Cooled Single Cylinder FI',
     featured: false,
+    imagePath: '/images/bikes/avenger-street-160.jpg',
+    imageAlt: 'Bajaj Avenger Street 160 urban cruiser motorcycle',
+    imageAltHindi: 'बजाज एवेंजर स्ट्रीट 160 अर्बन क्रूज़र बाइक',
     highlightSpecs: [
       { label: 'Engine', hindiLabel: 'इंजन', value: '160 cc' },
       { label: 'Power', hindiLabel: 'पावर', value: '15.0 PS' },
@@ -288,6 +324,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Dual Channel ABS (320mm Front Disc) / USD Forks',
     fuelType: 'Liquid Cooled DOHC 4V Triple Spark',
     featured: true,
+    imagePath: '/images/bikes/dominar-400.jpg',
+    imageAlt: 'Bajaj Dominar 400 hyper tourer motorcycle',
+    imageAltHindi: 'बजाज डोमिनार 400 हाइपर टूरर बाइक',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '40.0 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '35.0 Nm' },
@@ -310,6 +349,9 @@ export const BAJAJ_MOTORCYCLES: MotorcycleSpec[] = [
     brakes: 'Dual Channel ABS (300mm Front Disc) / USD Forks',
     fuelType: 'Liquid Cooled DOHC 4V',
     featured: false,
+    imagePath: '/images/bikes/dominar-250.jpg',
+    imageAlt: 'Bajaj Dominar 250 sports touring motorcycle',
+    imageAltHindi: 'बजाज डोमिनार 250 स्पोर्ट्स टूरिंग बाइक',
     highlightSpecs: [
       { label: 'Power', hindiLabel: 'पावर', value: '27.0 PS' },
       { label: 'Torque', hindiLabel: 'टॉर्क', value: '23.5 Nm' },
